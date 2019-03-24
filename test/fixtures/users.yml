@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  display_name: MyString
+  email: MyString
+  spotify_id: MyString
+  access_token: MyString
+  expires_at: 2019-03-24 19:11:25
+  refresh_token: MyString
+
+two:
+  display_name: MyString
+  email: MyString
+  spotify_id: MyString
+  access_token: MyString
+  expires_at: 2019-03-24 19:11:25
+  refresh_token: MyString

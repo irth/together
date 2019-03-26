@@ -10,4 +10,9 @@ class SessionsController < ApplicationController
     	raise "find_or_create_by_spotify failed"
     end
   end
+
+  def destroy
+    log_out
+    redirect_to homepage_url
+  end
 end

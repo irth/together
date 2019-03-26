@@ -1,2 +1,3 @@
 <h1>Project 42</h1>
 <p><%= link_to 'Log in via Spotify', auth_path(:spotify) %></p>
+<p><% if logged_in? %>Hello, <%= current_user.display_name %>.<% end %></p>

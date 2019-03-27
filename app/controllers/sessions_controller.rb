@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
 
     if @user
       log_in @user
-      redirect_to root_url
+      redirect_back_or root_url
     else
-    	raise "find_or_create_by_spotify failed"
+      raise 'find_or_create_by_spotify failed'
     end
   end
 

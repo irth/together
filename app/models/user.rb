@@ -4,6 +4,10 @@ class User < ApplicationRecord
   has_many :users_tracks
   has_many :tracks, through: :users_tracks
 
+  def playlists
+    Playlist.where("user1_id = ? OR user2_id = ?", self.id, self.id)
+  end
+
   def self.find_or_create_by_spotify(spotify_user)
     u = User.find_or_initialize_by(spotify_id: spotify_user.id)
 

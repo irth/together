@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_27_123427) do
+ActiveRecord::Schema.define(version: 2019_03_27_194401) do
+
+  create_table "playlists", force: :cascade do |t|
+    t.integer "user1_id"
+    t.integer "user2_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "key"
+    t.index ["key"], name: "index_playlists_on_key", unique: true
+    t.index ["user1_id"], name: "index_playlists_on_user1_id"
+    t.index ["user2_id"], name: "index_playlists_on_user2_id"
+  end
 
   create_table "tracks", force: :cascade do |t|
     t.string "spotify_id"

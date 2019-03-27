@@ -1,0 +1,4 @@
+<h1>Playlists#join</h1>
+<p>Find me in app/views/playlists/join.html.erb</p>
+
+<%= link_to (!logged_in? ? "Log in via Spotify" : "Join playlist"), join_playlist_path(@playlist.id, key: @playlist.key), method: :post %>

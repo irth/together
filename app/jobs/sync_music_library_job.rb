@@ -4,6 +4,7 @@ class SyncMusicLibraryJob < ApplicationJob
   queue_as :default
 
   def perform(user)
+    # TODO: report progress via Active Cable
     u = RSpotify::User.new user.spotify_user
 
     offset = 0

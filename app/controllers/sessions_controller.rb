@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
     if @user
       log_in @user
-      redirect_to homepage_url
+      redirect_to root_url
     else
     	raise "find_or_create_by_spotify failed"
     end
@@ -13,6 +13,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to homepage_url
+    redirect_to root_url
   end
 end

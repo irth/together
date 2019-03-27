@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_24_183050) do
+ActiveRecord::Schema.define(version: 2019_03_27_123427) do
 
   create_table "tracks", force: :cascade do |t|
     t.string "spotify_id"
@@ -25,18 +25,18 @@ ActiveRecord::Schema.define(version: 2019_03_24_183050) do
     t.string "display_name"
     t.string "email"
     t.string "spotify_id"
-    t.string "access_token"
-    t.datetime "expires_at"
-    t.string "refresh_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "spotify_user"
   end
 
-  create_table "users_songs", force: :cascade do |t|
+  create_table "users_tracks", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "song_id"
+    t.integer "track_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_users_tracks_on_track_id"
+    t.index ["user_id"], name: "index_users_tracks_on_user_id"
   end
 
 end

@@ -16,5 +16,5 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-	inflect.uncountable %w(users_songs)
+	inflect.uncountable %w(users_songs users_tracks)
 end

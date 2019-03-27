@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UsersSongsTest < ActiveSupport::TestCase
+class SyncMusicLibraryJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

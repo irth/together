@@ -29,8 +29,8 @@ class PlaylistsController < ApplicationController
   end
 
   def correct_key
-    redirect_to(root_url) && return unless params[:key] == @playlist.key
-    redirect_to(root_url) && return if @playlist.user2
+    redirect_to root_url and return unless params[:key] == @playlist.key
+    redirect_to root_url and return if @playlist.full?
     redirect_to @playlist if @playlist.user?(current_user)
   end
 end

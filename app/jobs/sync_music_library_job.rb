@@ -30,5 +30,8 @@ class SyncMusicLibraryJob < ApplicationJob
 
       break if tracks.size < limit
     end
+
+    user.last_synced_at = DateTime.now
+    user.save
   end
 end

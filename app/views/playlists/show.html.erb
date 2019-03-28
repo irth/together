@@ -2,5 +2,13 @@
 <p>Find me in app/views/playlists/show.html.erb</p>
 <h1><%= @playlist.key %>, <%= @playlist.id %>, <%= @playlist.user1 %> <%= @playlist.user2 %></h1>
 <pre>
+<% if current_user.last_synced_at.nil? %>
+	You haven't synced your music library yet.
+<% else %>
+  Last time you synced was <%= time_ago_in_words current_user.last_synced_at %> ago.
+<% end %>
+
+other_user sync: [<%= @playlist.other_user(current_user)&.last_synced_at %>]
+<%= link_to 'Sync now.', start_sync_path, method: :post %>
 <%= join_playlist_url(@playlist.id, key: @playlist.key) %>
 	</pre>	

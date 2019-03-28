@@ -7,4 +7,12 @@ class Playlist < ApplicationRecord
   def user?(user)
     !user.nil? && (user1 == user || user2 == user)
   end
+
+  def other_user(user)
+    user1 == user ? user2 : user1
+  end
+
+  def full?
+    !user2.nil?
+  end
 end

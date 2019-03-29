@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   def spotify
-    u = RSpotify::User.new(request.env['omniauth.auth'])
-    @user = User.find_or_create_by_spotify u
+    @user = User.find_or_create_by_omniauth request.env['omniauth.auth']
 
     if @user
       log_in @user

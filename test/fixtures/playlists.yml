@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user1: one
-  user2: one
+empty:
+  user1: bike
+  user2:
+  key: asecret
 
-two:
-  user1: two
-  user2: two
+full:
+  user1: bike
+  user2: mike
+  key: asecret2

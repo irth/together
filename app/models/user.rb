@@ -8,13 +8,14 @@ class User < ApplicationRecord
     Playlist.where("user1_id = ? OR user2_id = ?", self.id, self.id)
   end
 
-  def self.find_or_create_by_spotify(spotify_user)
-    u = User.find_or_initialize_by(spotify_id: spotify_user.id)
+  def self.find_or_create_by_omniauth(omniauth)
+    i = omniauth.info
+    u = User.find_or_initialize_by(spotify_id: i.id)
 
-    success = u.update(display_name: spotify_user.display_name,
-                       email: spotify_user.email,
-                       spotify_id: spotify_user.id,
-                       spotify_user: spotify_user.to_hash)
+    success = u.update(display_name: i.display_name,
+                       email: i.email,
+                       spotify_id: i.id,
+                       spotify_user: omniauth)
 
     return nil unless success
 

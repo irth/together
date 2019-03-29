@@ -1,3 +1,5 @@
 Style/AndOr:
-  Exclude:
-    - 'app/controllers/**/*'
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

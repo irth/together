@@ -5,7 +5,7 @@ class PlaylistsController < ApplicationController
   before_action :correct_key, only: %i[join join_request]
 
   def show
-    redirect_to root_url and return unless @playlist.user?(current_user)
+    redirect_to(root_url) && return unless @playlist.user?(current_user)
   end
 
   def create
@@ -30,7 +30,7 @@ class PlaylistsController < ApplicationController
 
   def correct_key
     redirect_to root_url and return unless params[:key] == @playlist.key
+    redirect_to @playlist and return if @playlist.user?(current_user)
     redirect_to root_url and return if @playlist.full?
-    redirect_to @playlist if @playlist.user?(current_user)
   end
 end

@@ -7,4 +7,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  include ApplicationHelper
+
+  def log_in_as(user)
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:spotify] = OmniAuth::AuthHash.new user.spotify_user
+    get '/auth/spotify'
+    follow_redirect!
+  end
 end

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  include SessionsHelper
   include ApplicationHelper
+  include SessionsHelper
 
   def logged_in_user
     _logged_in_user false

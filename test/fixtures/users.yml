@@ -7,6 +7,7 @@
   spotify_id: "id_<%= name %>"
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
+  last_synced_at: <%= Time.now %>
 
   spotify_user: !ruby/hash:OmniAuth::AuthHash
     provider: "id_<%= name %>"

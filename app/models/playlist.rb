@@ -8,11 +8,19 @@ class Playlist < ApplicationRecord
     !user.nil? && (user1 == user || user2 == user)
   end
 
+  def full?
+    !user2.nil?
+  end
+
+  def ready?
+    full? && !user1.last_synced_at.nil? && !user2.last_synced_at.nil?
+  end
+
   def other_user(user)
     user1 == user ? user2 : user1
   end
 
-  def full?
-    !user2.nil?
+  def tracks
+    full? && Track.find_common(user1, user2)
   end
 end

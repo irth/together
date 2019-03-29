@@ -11,4 +11,11 @@
 other_user sync: [<%= @playlist.other_user(current_user)&.last_synced_at %>]
 <%= link_to 'Sync now.', start_sync_path, method: :post %>
 <%= join_playlist_url(@playlist.id, key: @playlist.key) %>
+playlist ready: <%= @playlist.ready? %>
+<% if @playlist.ready? %>
+Somgs:
+<% @playlist.tracks.each do |track| %>
+	* <%= track.artists.join(", ") %> - <%= track.title %>
+<% end %>
+<% end %>
 	</pre>	

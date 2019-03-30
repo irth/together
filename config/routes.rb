@@ -2,11 +2,16 @@ Rails.application.routes.draw do
   # static
   get '/', to: 'static_pages#home', as: 'root'
 
-  # # playlists
+  # playlists
   post 'playlists', to: 'playlists#create', as: 'new_playlist'
+
   get 'playlists/:id', to: 'playlists#show', as: 'playlist'
+
   get 'playlists/:id/join', to: 'playlists#join_request', as: 'join_playlist_request'
-  post 'playlists/:id/join', to: 'playlists#join', as: 'join_playlist'
+  post 'playlists/:id/join', to: 'playlists#join', as: 'join_playlist' # TODO: name only one route
+
+  get 'playlists/:id/save', to: 'playlists#save_form', as: 'save_playlist'
+  post 'playlists/:id/save', to: 'playlists#save'
 
   # sync
   post 'sync/start', as: 'start_sync'

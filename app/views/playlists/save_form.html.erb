@@ -1,0 +1,12 @@
+<% flash.each do |key, value| %>
+    <div class="flash-<%= key %>}"><%= key %>: <%= value %></div>
+<% end %> <%# TODO: better flashes, but that will come with the entire front end rewrite %>
+aaa
+<%= form_with url: save_playlist_path(@playlist), local: true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :public %>
+    <%= f.check_box :public %>
+    <%= f.submit %>
+    <%# TODO: use form_with everywhere %>
+<% end %>

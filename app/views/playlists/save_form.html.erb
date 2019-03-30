@@ -5,7 +5,5 @@ aaa
 <%= form_with url: save_playlist_path(@playlist), local: true do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
-    <%= f.label :public %>
-    <%= f.check_box :public %>
     <%= f.submit %>
 <% end %>

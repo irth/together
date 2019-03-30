@@ -39,7 +39,6 @@ class PlaylistsController < ApplicationController
 
     unless params[:name].length.between?(1, 100)
       flash.now[:error] = "The playlist name #{params[:name].length > 100 ? 'is too long (over 100 characters)' : 'is empty'}."
-      puts 'flashing'
       render 'save_form' and return
     end
     s = RSpotify::User.new current_user.spotify_user

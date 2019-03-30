@@ -3,8 +3,31 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
+  def remember(user)
+    t = AuthToken.new
+    t.user = user
+    t.save
+
+    cookies.permanent[:token] = t.token
+  end
+
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    if (user_id = session[:user_id])
+      # if possible, load the user from session
+      @current_user ||= User.find_by(id: session[:user_id])
+    elsif (token = cookies[:token])
+      # alternatively, use cookies
+      token = AuthToken.find_by(token: token)
+      if token
+        if token.expires_at.past?
+          log_out # delete the cookies and session data
+        else
+          token.refresh
+          log_in token.user
+          @current_user = token.user
+        end
+      end
+    end
   end
 
   def logged_in?
@@ -13,6 +36,10 @@ module SessionsHelper
 
   def log_out
     session.delete(:user_id)
+
+    AuthToken.find_by(token: cookies[:token])&.destroy
+    cookies.delete(:token)
+
     @current_user = nil
   end
 

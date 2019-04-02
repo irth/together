@@ -7,17 +7,10 @@
 <% end %>
 <pre>
 
-<% if current_user.last_synced_at.nil? %>
-	You haven't synced your music library yet.
-<% else %>
-  Last time you synced was <%= time_ago_in_words current_user.last_synced_at %> ago.
-<% end %>
-
-other_user sync: [<%= @playlist.other_user(current_user)&.last_synced_at %>]
-<%= link_to 'Sync now.', start_sync_path, method: :post %>
 <%= join_playlist_url(@playlist.id, key: @playlist.key) %>
 playlist ready: <%= @playlist.ready? %>
 <% if @playlist.ready? %>
+
 Somgs:
 <% @playlist.tracks.each do |track| %>
 	* <%= track.artists.join(", ") %> - <%= track.title %>
@@ -25,3 +18,17 @@ Somgs:
 <%= link_to 'save', save_playlist_path(@playlist) %>
 <% end %>
 	</pre>	
+<div>
+own status:
+<span id="sync-status" data-behavior="sync_status" data-user="<%= current_user.id %>" data-playlist-id="<%= @playlist.id %>">
+<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: current_user } %>
+</span>
+</div>
+<% if @playlist.full? %>
+<div>
+other:
+<span id="sync-status" data-behavior="sync_status" data-user="<%= @playlist.other_user(current_user).id %>" data-playlist-id="<%= @playlist.id %>">
+<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: @playlist.other_user(current_user) } %>
+</span>
+</div>
+<% end %>

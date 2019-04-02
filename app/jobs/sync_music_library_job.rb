@@ -4,12 +4,10 @@ class SyncMusicLibraryJob < ApplicationJob
   queue_as :default
 
   def send_status(user, playlist, saved, done = false)
-    return unless playlist
-
     PlaylistStatusChannel.broadcast_to(
       playlist,
       type: 'sync_status',
-      user: user.id,
+      user: user.id.to_s,
       html: ApplicationController.renderer.render(
         partial: 'playlists/status',
         locals: {
@@ -48,7 +46,7 @@ class SyncMusicLibraryJob < ApplicationJob
         relation.user = user
         relation.save
         saved += 1
-        send_status(user, playlist, saved) if saved % 5 == 0
+        send_status(user, playlist, saved) if saved % 7 == 0
       end
       send_status(user, playlist, saved)
 
@@ -58,5 +56,12 @@ class SyncMusicLibraryJob < ApplicationJob
 
     user.last_synced_at = DateTime.now
     user.save
+
+    if playlist.reload.ready?
+      PlaylistStatusChannel.broadcast_to(
+        playlist,
+        type: 'playlist_ready'
+      )
+    end
   end
 end

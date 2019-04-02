@@ -20,15 +20,26 @@ Somgs:
 	</pre>	
 <div>
 own status:
-<span id="sync-status" data-behavior="sync_status" data-user="<%= current_user.id %>" data-playlist-id="<%= @playlist.id %>">
-<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: current_user } %>
+<span
+	id="sync-status"
+	data-behavior="sync_status"
+	data-self
+	data-user="<%= current_user.id %>"
+	data-playlist-id="<%= @playlist.id %>"
+	data-ready="<%= @playlist.ready? %>"
+>
+	<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: current_user } %>
 </span>
 </div>
 <% if @playlist.full? %>
 <div>
 other:
-<span id="sync-status" data-behavior="sync_status" data-user="<%= @playlist.other_user(current_user).id %>" data-playlist-id="<%= @playlist.id %>">
-<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: @playlist.other_user(current_user) } %>
+<span
+	id="sync-status"
+	data-behavior="sync_status" 
+	data-user="<%= @playlist.other_user(current_user).id %>"
+>
+	<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: @playlist.other_user(current_user) } %>
 </span>
 </div>
 <% end %>

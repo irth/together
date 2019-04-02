@@ -25,6 +25,13 @@ class PlaylistsController < ApplicationController
 
     @playlist.user2 = current_user
     @playlist.save
+
+    PlaylistStatusChannel.broadcast_to(
+      @playlist,
+      type: 'join_event',
+      user: current_user.id.to_s
+    )
+
     redirect_to @playlist
   end
 

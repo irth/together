@@ -6,6 +6,7 @@ class PlaylistsController < ApplicationController
 
   def show
     require_correct_user or return
+    @other_user = @playlist.other_user(current_user)
   end
 
   def create
@@ -28,8 +29,11 @@ class PlaylistsController < ApplicationController
 
     PlaylistStatusChannel.broadcast_to(
       @playlist,
-      type: 'join_event',
-      user: current_user.id.to_s
+      event: 'join',
+      user: current_user.id.to_s,
+      displayName: current_user.display_name,
+      lastSyncedAt: current_user.last_synced_at,
+      tracks: @playlist.tracks
     )
 
     redirect_to @playlist
@@ -45,7 +49,11 @@ class PlaylistsController < ApplicationController
     require_ready or return
 
     unless params[:name].length.between?(1, 100)
-      flash.now[:error] = "The playlist name #{params[:name].length > 100 ? 'is too long (over 100 characters)' : 'is empty'}."
+      flash.now[:error] = if params[:name].length > 100
+                            'The playlist name must be shorter than 100 characters.'
+                          else
+                            'The playlist name cannot be empty.'
+                          end
       render 'save_form' and return
     end
     s = RSpotify::User.new current_user.spotify_user

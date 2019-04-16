@@ -1,27 +1,11 @@
 require 'rspotify'
 
+include ActionView::Helpers::DateHelper
+
 class SyncMusicLibraryJob < ApplicationJob
   queue_as :default
 
-  def send_status(user, playlist, saved, done = false)
-    PlaylistStatusChannel.broadcast_to(
-      playlist,
-      type: 'sync_status',
-      user: user.id.to_s,
-      html: ApplicationController.renderer.render(
-        partial: 'playlists/status',
-        locals: {
-          syncing: true,
-          user: user,
-          saved_count: saved,
-          done: done
-        }
-      )
-    )
-  end
-
   def perform(user, playlist)
-    # TODO: report progress via Active Cable
     u = RSpotify::User.new user.spotify_user
 
     offset = 0
@@ -30,7 +14,13 @@ class SyncMusicLibraryJob < ApplicationJob
     user.users_tracks.destroy_all
 
     saved = 0
-    send_status(user, playlist, saved)
+
+    PlaylistStatusChannel.broadcast_to(
+      playlist,
+      event: 'sync_start',
+      user: user.id.to_s
+    )
+
     loop do
       tracks = u.saved_tracks(limit: limit, offset: offset)
       offset += limit
@@ -38,7 +28,8 @@ class SyncMusicLibraryJob < ApplicationJob
       tracks.each do |track|
         t = Track.create_with(artists: track.artists.map(&:name),
                               album: track.album.name,
-                              title: track.name)
+                              title: track.name,
+                              url: track.external_urls['spotify'])
                  .find_or_create_by(spotify_id: track.id)
 
         relation = UsersTracks.new
@@ -46,22 +37,37 @@ class SyncMusicLibraryJob < ApplicationJob
         relation.user = user
         relation.save
         saved += 1
-        send_status(user, playlist, saved) if saved % 7 == 0
+
+        # send a status update every 7 songs
+        next unless saved % 7
+
+        PlaylistStatusChannel.broadcast_to(
+          playlist,
+          event: 'sync_update',
+          user: user.id.to_s,
+          songs: saved
+        )
       end
-      send_status(user, playlist, saved)
+
+      PlaylistStatusChannel.broadcast_to(
+        playlist,
+        event: 'sync_update',
+        user: user.id.to_s,
+        songs: saved
+      )
 
       break if tracks.size < limit
     end
-    send_status(user, playlist, saved, done = true)
 
     user.last_synced_at = DateTime.now
     user.save
 
-    if playlist.reload.ready?
-      PlaylistStatusChannel.broadcast_to(
-        playlist,
-        type: 'playlist_ready'
-      )
-    end
+    PlaylistStatusChannel.broadcast_to(
+      playlist,
+      event: 'sync_done',
+      user: user.id.to_s,
+      lastSyncedAt: user.last_synced_at,
+      tracks: playlist.tracks
+    )
   end
 end

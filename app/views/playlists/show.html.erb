@@ -1,45 +1,13 @@
-<h1>Playlists#show</h1>
-<p>Find me in app/views/playlists/show.html.erb</p>
-<h1><%= @playlist.key %>, <%= @playlist.id %>, <%= @playlist.user1 %> <%= @playlist.user2 %></h1>
-
-<% flash.each do |key, value| %>
-    <div class="flash-<%= key %>}"><%= key %>: <%= value %></div>
-<% end %>
-<pre>
-
-<%= join_playlist_url(@playlist.id, key: @playlist.key) %>
-playlist ready: <%= @playlist.ready? %>
-<% if @playlist.ready? %>
-
-Somgs:
-<% @playlist.tracks.each do |track| %>
-	* <%= track.artists.join(", ") %> - <%= track.title %>
-<% end %>
-<%= link_to 'save', save_playlist_path(@playlist) %>
-<% end %>
-	</pre>	
-<div>
-own status:
-<span
-	id="sync-status"
-	data-behavior="sync_status"
-	data-self
-	data-user="<%= current_user.id %>"
-	data-playlist-id="<%= @playlist.id %>"
-	data-ready="<%= @playlist.ready? %>"
->
-	<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: current_user } %>
-</span>
+<div
+  data-behavior="playlist-view"
+  data-current-user="<%= current_user.id %>"
+  data-other-user="<%= @other_user&.id %>"
+  data-display-name-other="<%= @other_user&.display_name %>"
+  data-full="<%= @playlist.full? %>"
+  data-link="<%= join_playlist_url(@playlist.id, key: @playlist.key) %>"
+  data-playlist-id="<%= @playlist.id %>"
+  data-playlist-save-url="<%= save_playlist_url(@playlist) %>"
+  data-last-synced-at="<% if current_user.last_synced_at %><%= current_user.last_synced_at %><% end %>"
+  data-last-synced-at-other="<% if @other_user&.last_synced_at %><%= @other_user.last_synced_at %><% end %>"
+  data-tracks="<%= @playlist.tracks.to_json %>">
 </div>
-<% if @playlist.full? %>
-<div>
-other:
-<span
-	id="sync-status"
-	data-behavior="sync_status" 
-	data-user="<%= @playlist.other_user(current_user).id %>"
->
-	<%= render partial: "status", locals: { syncing: false, playlist: @playlist, user: @playlist.other_user(current_user) } %>
-</span>
-</div>
-<% end %>

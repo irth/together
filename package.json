@@ -1,5 +1,18 @@
 {
   "name": "app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "^4.0.2",
+    "autoprefixer": "^9.5.0",
+    "axios": "^0.18.0",
+    "postcss-preset-env": "^6.6.0",
+    "tailwindcss": "^0.7.4",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "vue-turbolinks": "^2.0.4"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.2.1"
+  }
 }

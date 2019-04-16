@@ -21,6 +21,6 @@ class Playlist < ApplicationRecord
   end
 
   def tracks
-    full? && Track.find_common(user1, user2)
+    ready? ? Track.find_common(user1, user2) : []
   end
 end

@@ -1,0 +1,34 @@
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-spotify-black text-white m-0 p-0 font-sans;
+}
+
+/* TODO: hover color */
+.big-round-button,
+.round-button {
+  @apply rounded-full bg-spotify-green text-lg py-2 mt-4 inline-block  no-underline font-semibold text-white px-5;
+}
+
+.big-round-button {
+  @apply text-xl p-4 mt-8 px-8;
+}
+
+.big-round-button:hover,
+.round-button:hover {
+  @apply bg-spotify-green-light;
+}
+
+a {
+  @apply text-grey;
+}
+
+.flash-error {
+  @apply text-red;
+}
+
+.flash-success {
+  @apply text-green;
+}

@@ -11,7 +11,7 @@ class SyncControllerTest < ActionDispatch::IntegrationTest
   test 'should start the SyncMusicLibraryJob when called' do
     log_in_as users(:mike)
     assert_enqueued_jobs 1, only: SyncMusicLibraryJob do
-      post start_sync_url
+      post start_sync_url(playlist: playlists(:full))
     end
   end
 end

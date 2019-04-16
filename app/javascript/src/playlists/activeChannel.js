@@ -1,11 +1,6 @@
-$(document).on("turbolinks:load", function() {
-  el = $('[data-behavior="sync_status"][data-self]');
-  if (el.length == 0) return;
-  current_user = el.data("user");
-
-  let playlist_ready = el.data("ready");
-  console.log(playlist_ready);
-  App.sync_status = App.cable.subscriptions.create(
+export default function connect() {
+  // window.App is created by Rails
+  window.App.cable.subscriptions.create(
     {
       channel: "PlaylistStatusChannel",
       playlist_id: el.data("playlist-id")
@@ -35,4 +30,4 @@ $(document).on("turbolinks:load", function() {
       }
     }
   );
-});
+}

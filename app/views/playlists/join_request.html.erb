@@ -1,4 +1,13 @@
-<h1>Playlists#join</h1>
-<p>Find me in app/views/playlists/join.html.erb</p>
+<p class="text-2xl p-4 mw-5">
+    Your friend
+    <% unless @playlist.user1.display_name.empty? %>
+    <span class="text-spotify-green">
+        <%= @playlist.user1.display_name %>
+    </span>
+    <% end %>
+    has invited you to join their playlist.
+</p>
 
-<%= link_to (!logged_in? ? "Log in via Spotify" : "Join playlist"), join_playlist_path(@playlist.id, key: @playlist.key), method: :post %>
+<p><span class="max-w-md inline-block leading-tight text-justify text-lg">Once you log in and synchronize your music library, we'll create a personalised playlist containing songs that you both like, so that you can listen to it together.</span></p>
+
+<%= link_to (!logged_in? ? "Log in via Spotify" : "Join playlist"), join_playlist_path(@playlist.id, key: @playlist.key), method: :post, class: "big-round-button" %>

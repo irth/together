@@ -7,8 +7,8 @@ Rails.application.routes.draw do
 
   get 'playlists/:id', to: 'playlists#show', as: 'playlist'
 
-  get 'playlists/:id/join', to: 'playlists#join_request', as: 'join_playlist'
-  post 'playlists/:id/join', to: 'playlists#join'
+  get 'j/:id/:key', to: 'playlists#join_request', as: 'join_playlist'
+  post 'j/:id/:key', to: 'playlists#join'
 
   get 'playlists/:id/save', to: 'playlists#save_form', as: 'save_playlist'
   post 'playlists/:id/save', to: 'playlists#save'

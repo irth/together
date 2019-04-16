@@ -1,8 +1,0 @@
-<% if syncing %>
-<b>Syncing:</b> <%= saved_count %> <% if done %>done. <% end %>
-<% else %>
-Last synced: <% if user.last_synced_at %><%= time_ago_in_words user.last_synced_at %> ago<% else %>never<% end %>.
-<% if current_user == user %>
-<%= link_to 'Sync now.', start_sync_path(playlist: playlist.id), method: :post, remote: true %>
-<% end %>
-<% end %>

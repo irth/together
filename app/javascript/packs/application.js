@@ -15,3 +15,5 @@
 // const imagePath = (name) => images(name, true)
 
 import "application.css";
+
+import "playlists/index.js";

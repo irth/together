@@ -15,13 +15,19 @@
   </head>
 
   <body>
-    <div class="text-center">
-      <header class="p-4 m-8 mb-6">
-        <h1 class="text-5xl p-2">Together</h1>
+    <div class="text-center px-4 pb-16">
+      <header class="p-4 m-8 mb-0">
+        <h1 class="text-5xl p-2"><%= link_to 'Together', root_url, class: %w[no-underline text-white] %></h1>
         <h2 class="text-2xl text-grey">
           for <span class="text-spotify-green">Spotify</span>
         </h2>
+    
       </header>
+      <div id="flashes" class="mb-6">
+        <% flash.each do |key, value| %>
+          <div class="flash-<%= key %>"><%= value %></div>
+        <% end %>
+      </div>
       <%= yield %>
     </div>
   </body>

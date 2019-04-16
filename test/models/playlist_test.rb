@@ -23,9 +23,9 @@ class PlaylistTest < ActiveSupport::TestCase
     assert p.ready?
   end
 
-  test 'tracks returns false for a playlist that is not ready' do
+  test 'tracks returns an empty array for a playlist that is not ready' do
     p = playlists(:empty)
     assert_not p.ready?
-    assert_not p.tracks
+    assert p.tracks&.empty?
   end
 end

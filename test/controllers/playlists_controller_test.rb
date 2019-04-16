@@ -2,19 +2,21 @@ require 'test_helper'
 
 class PlaylistsControllerTest < ActionDispatch::IntegrationTest
   test 'show, create, join, save_form and save should redirect to log in when not logged in' do
+    playlist = playlists(:empty)
+
     get playlist_url(1)
     assert_redirected_to auth_path(:spotify)
 
     post new_playlist_url
     assert_redirected_to auth_path(:spotify)
 
-    post join_playlist_url(1)
+    post join_playlist_url(playlist, key: playlist.key)
     assert_redirected_to auth_path(:spotify)
 
-    get save_playlist_url(1)
+    get save_playlist_url(playlist)
     assert_redirected_to auth_path(:spotify)
 
-    post save_playlist_url(1)
+    post save_playlist_url(playlist)
     assert_redirected_to auth_path(:spotify)
   end
 

@@ -64,6 +64,8 @@ group :development do
   gem "capistrano", "~> 3.11", require: false
   gem "capistrano-rails", "~> 1.4", require: false
   gem "capistrano-rbenv", "~> 2.1", require: false
+  gem "ed25519", require: false  # for my ssh key
+  gem "bcrypt_pbkdf", require: false
 end
 
 group :test do
@@ -82,5 +84,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# easier env variables for dev
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'

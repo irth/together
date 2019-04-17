@@ -3,7 +3,6 @@ lock '~> 3.11.0'
 
 set :application, 'together'
 set :repo_url, 'https://github.com/irth/together'
-set :branch, 'capistrano'
 set :deploy_to, '/var/www/together'
 set :rbenv_type, :user
 set :rbenv_ruby, File.read('.ruby-version').strip

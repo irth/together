@@ -63,7 +63,9 @@ class PlaylistsController < ApplicationController
     playlist = s.create_playlist!(params[:name])
 
     tracks = @playlist.tracks.map { |t| "spotify:track:#{t.spotify_id}" }
-    playlist.add_tracks! tracks
+    tracks.each_slice 50 do |s|
+      playlist.add_tracks! s
+    end
 
     flash[:success] = 'Saved the playlist to your Spotify account.'
     redirect_to @playlist

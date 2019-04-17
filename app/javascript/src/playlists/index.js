@@ -9,6 +9,7 @@ function main() {
   const el = $('[data-behavior="playlist-view"]');
   if (el.length == 0) return;
 
+  const nullableString = val => (val == "" ? null : val);
   const data = {
     currentUser: el.data("current-user").toString(),
     otherUser: el.data("other-user").toString(),
@@ -17,8 +18,10 @@ function main() {
     link: el.data("link"),
     playlistID: el.data("playlist-id").toString(),
     playlistSaveURL: el.data("playlist-save-url").toString(),
-    lastSyncedAt: el.data("last-synced-at"),
-    lastSyncedAtOther: el.data("last-synced-at-other"),
+    lastSyncedAt: nullableString(el.data("last-synced-at").toString()),
+    lastSyncedAtOther: nullableString(
+      el.data("last-synced-at-other").toString()
+    ),
     tracks: el.data("tracks")
   };
 

@@ -3,14 +3,14 @@
     <InviteLink v-bind:href="link" v-if="!full" />
     <div v-if="full">
       <SyncStatus v-if="syncing" own v-bind:songs="songs" />
-      <div v-else-if="lastSyncedAt == ''" class="text-xl">
+      <div v-else-if="lastSyncedAt == null" class="text-xl">
         <p>You haven't synced your music library yet.</p>
         <p>
           <a v-on:click="sync" href="#" class="big-round-button">Sync now.</a>
         </p>
       </div>
       <SyncStatus v-else-if="syncingOther" v-bind:songs="songsOther" />
-      <div v-else-if="lastSyncedAtOther == ''" class="text-lg">
+      <div v-else-if="lastSyncedAtOther == null" class="text-lg">
         Waiting for your friend to sync their music library.
       </div>
       <div v-else>
@@ -24,7 +24,9 @@
           like!
         </p>
         <p class="py-4">
-          <a v-bind:href="playlistSaveURL" class="round-button">Save to Spotify</a>
+          <a v-bind:href="playlistSaveURL" class="round-button"
+            >Save to Spotify</a
+          >
         </p>
         <Tracklist
           v-bind:tracks="tracks"

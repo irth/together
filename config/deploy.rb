@@ -8,7 +8,8 @@ set :deploy_to, '/var/www/together'
 set :rbenv_type, :user
 set :rbenv_ruby, File.read('.ruby-version').strip
 
-append :linked_files, ".env.production"
+append :linked_files, '.env.production', 'puma.rb'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

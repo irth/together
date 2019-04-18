@@ -35,9 +35,9 @@
         />
         <p>
           You can also try
-          <a href="#" v-on:click="sync" class="text-spotify-green">
-            re-syncing your library
-          </a>
+          <a href="#" v-on:click="sync" class="text-spotify-green"
+            >re-syncing your library</a
+          >
           if you've added any new songs recently.
         </p>
       </div>

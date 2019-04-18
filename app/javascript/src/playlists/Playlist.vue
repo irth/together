@@ -31,7 +31,7 @@
         <Tracklist
           v-bind:tracks="tracks"
           v-bind:tracksPerPage="10"
-          class="py-4"
+          class="pt-2 pb-4"
         />
         <p>
           You can also try

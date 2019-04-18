@@ -4,8 +4,16 @@ lock '~> 3.11.0'
 set :application, 'together'
 set :repo_url, 'https://github.com/irth/together'
 set :deploy_to, '/var/www/together'
+set :branch, fetch(:branch, 'master')
 set :rbenv_type, :user
 set :rbenv_ruby, File.read('.ruby-version').strip
+
+# There is a known bug that prevents sidekiq from starting when pty is true on Capistrano 3.
+set :pty, false
+
+# use bundler for sidekiq
+SSHKit.config.command_map[:sidekiq] = 'bundle exec sidekiq'
+SSHKit.config.command_map[:sidekiqctl] = 'bundle exec sidekiqctl'
 
 append :linked_files, '.env.production', 'puma.rb'
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'

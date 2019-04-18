@@ -18,5 +18,7 @@ module App
     config.generators do |g|
       g.javascript_engine :js
     end
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

@@ -65,6 +65,7 @@ group :development do
   gem "capistrano-rails", "~> 1.4", require: false
   gem "capistrano-rbenv", "~> 2.1", require: false
   gem 'capistrano3-puma' , require: false
+  gem 'capistrano-sidekiq', require: false
   gem 'capistrano-rails-console', require: false
 
   gem "ed25519", require: false  # for my ssh key
@@ -82,6 +83,7 @@ end
 
 group :production do
   gem 'pg', '~> 1.1.4'
+  gem 'sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

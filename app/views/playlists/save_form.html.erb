@@ -1,3 +1,4 @@
+<% title "Save playlist" %>
 <%= form_with url: save_playlist_path(@playlist), local: true, class: "" do |f| %>
     <div>
         <%= f.text_field :name, placeholder: "Name the playlist", class: %w[bg-spotify-gray text-white p-2 text-2xl rounded w-full max-w-sm] %>

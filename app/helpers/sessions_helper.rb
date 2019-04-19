@@ -3,6 +3,11 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
+  def save_spotify_credentials(credentials)
+    session[:spotify] = credentials
+    cookies.permanent.encrypted[:spotify] = credentials.to_json
+  end
+
   def remember(user)
     t = AuthToken.new
     t.user = user
@@ -30,6 +35,15 @@ module SessionsHelper
     end
   end
 
+  def spotify_credentials
+    if (credentials = session[:spotify])
+      @credentials ||= credentials
+    elsif (credentials = JSON.parse(cookies.encrypted[:spotify]))
+      save_spotify_credentials credentials
+      @credentials ||= credentials
+    end
+  end
+
   def logged_in?
     !current_user.nil?
   end
@@ -39,6 +53,9 @@ module SessionsHelper
 
     AuthToken.find_by(token: cookies[:token])&.destroy
     cookies.delete(:token)
+
+    session.delete(:spotify)
+    cookies.delete(:spotify)
 
     @current_user = nil
   end

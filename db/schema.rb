@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_15_214336) do
+ActiveRecord::Schema.define(version: 2019_04_19_125427) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "auth_tokens", force: :cascade do |t|
     t.integer "user_id"
@@ -21,8 +24,8 @@ ActiveRecord::Schema.define(version: 2019_04_15_214336) do
   end
 
   create_table "playlists", force: :cascade do |t|
-    t.integer "user1_id"
-    t.integer "user2_id"
+    t.bigint "user1_id"
+    t.bigint "user2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "key"
@@ -47,7 +50,6 @@ ActiveRecord::Schema.define(version: 2019_04_15_214336) do
     t.string "spotify_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "spotify_user"
     t.datetime "last_synced_at"
   end
 
@@ -60,4 +62,6 @@ ActiveRecord::Schema.define(version: 2019_04_15_214336) do
     t.index ["user_id"], name: "index_users_tracks_on_user_id"
   end
 
+  add_foreign_key "playlists", "users", column: "user1_id"
+  add_foreign_key "playlists", "users", column: "user2_id"
 end

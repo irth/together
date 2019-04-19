@@ -8,28 +8,4 @@
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
   last_synced_at: <%= Time.now %>
-
-  spotify_user: !ruby/hash:OmniAuth::AuthHash
-    provider: "id_<%= name %>"
-    uid: "id_<%= name %>"
-    info: !ruby/hash:OmniAuth::AuthHash::InfoHash
-      display_name: <%= name %>
-      email: <%= name %>@example.com
-      followers: !ruby/hash:OmniAuth::AuthHash
-        href:
-        total: 5
-      images: []
-      product:
-      external_urls: !ruby/hash:OmniAuth::AuthHash
-        spotify: https://open.spotify.com/user/id_<%= name %>
-      href: https://api.spotify.com/v1/users/id_<%= name %>
-      id: id_<%= name %>
-      type: user
-      uri: spotify:user:id_<%= name %>
-    credentials: !ruby/hash:OmniAuth::AuthHash
-      token: token_<%= name %>
-      refresh_token: refresh_token_<%= name %>
-      expires_at: <%= 3.days.from_now %>
-      expires: true
-    extra: !ruby/hash:OmniAuth::AuthHash {}
 <% end %>

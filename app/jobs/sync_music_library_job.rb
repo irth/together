@@ -5,9 +5,8 @@ include ActionView::Helpers::DateHelper
 class SyncMusicLibraryJob < ApplicationJob
   queue_as :default
 
-  def perform(user, playlist)
-    u = RSpotify::User.new user.spotify_user
-
+  def perform(user, credentials, playlist)
+    u = RSpotify::User.new({ "credentials" => credentials })
     offset = 0
     limit = 50
 

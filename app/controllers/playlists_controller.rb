@@ -56,7 +56,7 @@ class PlaylistsController < ApplicationController
                           end
       render 'save_form' and return
     end
-    s = RSpotify::User.new('credentials' => spotify_credentials)
+    s = RSpotify::User.new('id' => current_user.spotify_id, 'credentials' => spotify_credentials)
 
     # there's probably a bug in rspotify's code making it impossible to create
     # a private playlist

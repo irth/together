@@ -17,6 +17,12 @@ module SessionsHelper
   end
 
   def current_user
+    # force the user to log in again if they don't have their spotify credentials stored
+    if !session[:spotify]
+      log_out
+      return
+    end
+
     if (user_id = session[:user_id])
       # if possible, load the user from session
       @current_user ||= User.find_by(id: session[:user_id])

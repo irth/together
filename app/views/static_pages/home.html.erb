@@ -1,20 +1,23 @@
-<% if !logged_in? %>
-<p class="text-2xl mb-2">Compare your music tastes!</p>
-<p class="text-xl">
+<p class="text-2xl">
+  <% if !logged_in? %>
+  Compare your music tastes!</p>
+  <% else %>
+  Hi, <span class="text-green-light"><%= current_user.display_name %>.</span>
+  <% end %>
+</p>
+<p class="text-xl mt-4">
   Find songs that both you and your friend saved and listen to them
   together.
 </p>
+<% if !logged_in? %>
 <p>
   <%= link_to 'Log in via Spotify', auth_path(:spotify), class: "big-round-button" %>
 </p>
-<% else %>
-<p class="text-2xl">
-  Hi, <span class="text-green-light"><%= current_user.display_name %>.</span>
-</p> 
-<p class="text-xl pt-2">
-  Find songs that both you and your friend saved and listen to them
-  together.
+<p>
+  By logging in you consent to the <b>terms of service</b> and the <b>privacy policy</b>.
 </p>
-<p><%= link_to 'Create a playlist', new_playlist_path, class: 'big-round-button', method: :post %></p>
-<p><%= link_to 'Log out.', logout_path, class: 'text-grey-darker hover:text-grey-dark', method: :delete %></p>
+<% else %>
+<p>
+  <%= link_to 'Create a playlist', new_playlist_path, class: 'big-round-button', method: :post %>
+</p>
 <% end %>

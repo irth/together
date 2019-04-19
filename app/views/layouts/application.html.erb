@@ -15,8 +15,8 @@
   </head>
 
   <body>
-    <div class="text-center px-4 pb-16">
-      <header class="p-4 m-8 mb-0">
+    <div class="text-center px-4 pb-8">
+      <header class="p-2 m-4 mb-0">
         <h1 class="text-5xl p-2"><%= link_to 'Together', root_url, class: %w[no-underline text-white] %></h1>
         <h2 class="text-2xl text-grey">
           for <span class="text-spotify-green">Spotify</span>
@@ -29,6 +29,12 @@
         <% end %>
       </div>
       <%= yield %>
+      <footer class="mt-8">
+        <%= link_to 'Homepage', root_path %> &middot;
+        <%= link_to 'Terms of service', tos_path %> &middot;
+        <%= link_to 'Privacy policy', privacy_path %>
+        <% if logged_in? %>&middot; <%= link_to 'Log out', logout_path, method: :delete %><% end %>
+      </footer>
     </div>
   </body>
 </html>

@@ -32,3 +32,29 @@ a {
 .flash-success {
   @apply text-green;
 }
+
+.tos {
+  @apply text-justify max-w-md m-auto leading-normal;
+}
+
+.tos > h2,
+.tos > h3 {
+  @apply text-center;
+}
+
+.tos > p {
+  @apply leading-tight;
+}
+
+.tos > p,
+.tos > ul {
+  @apply mt-4;
+}
+
+footer a {
+  @apply text-grey-darker;
+}
+
+footer a:hover {
+  @apply text-grey-dark;
+}

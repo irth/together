@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # static
   get '/', to: 'static_pages#home', as: 'root'
+  get '/tos', to: 'static_pages#tos', as: 'tos'
+  get '/privacy', to: 'static_pages#privacy', as: 'privacy'
 
   # playlists
   post 'playlists', to: 'playlists#create', as: 'new_playlist'

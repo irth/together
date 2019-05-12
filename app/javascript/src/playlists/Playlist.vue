@@ -13,6 +13,16 @@
       <div v-else-if="lastSyncedAtOther == null" class="text-lg">
         Waiting for your friend to sync their music library.
       </div>
+      <div v-else-if="this.tracks.length == 0">
+        <p>Unfortunately, we couldn't find songs that you both like :(</p>
+        <p>
+          Try
+          <a href="#" v-on:click="sync" class="text-spotify-green"
+            >re-syncing your library</a
+          >
+          if you've added any new songs recently.
+        </p>
+      </div>
       <div v-else>
         <p class="text-xl">
           We have found
